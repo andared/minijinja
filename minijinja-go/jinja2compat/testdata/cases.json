@@ -1,0 +1,1106 @@
+{
+ "jinja2_version": "3.1.6",
+ "context": {
+  "s": "abc",
+  "s_ru": "дом",
+  "s_empty": "",
+  "s_pad": "  x  ",
+  "s_up": "ABC",
+  "s_dash": "a-b-c",
+  "s_num": "42",
+  "s_float": "1.5",
+  "i": 7,
+  "i_neg": -7,
+  "i_zero": 0,
+  "f": 2.5,
+  "f_neg": -2.5,
+  "f_whole": 4.0,
+  "f_big": 1e+20,
+  "t": true,
+  "no": false,
+  "nil": null,
+  "l": [
+   3,
+   1,
+   2
+  ],
+  "l_str": [
+   "b",
+   "A",
+   "c"
+  ],
+  "l_empty": [],
+  "l_dup": [
+   1,
+   1,
+   2
+  ],
+  "d": {
+   "b": 2,
+   "a": 1
+  },
+  "d_empty": {},
+  "objs": [
+   {
+    "n": 2,
+    "k": "x"
+   },
+   {
+    "n": 1,
+    "k": "y"
+   },
+   {
+    "n": 3,
+    "k": "x"
+   }
+  ]
+ },
+ "cases": [
+  {
+   "name": "str/upper",
+   "template": "{{ s|upper }}",
+   "jinja2": "ABC"
+  },
+  {
+   "name": "str/upper-cyrillic",
+   "template": "{{ s_ru|upper }}",
+   "jinja2": "ДОМ"
+  },
+  {
+   "name": "str/lower",
+   "template": "{{ s_up|lower }}",
+   "jinja2": "abc"
+  },
+  {
+   "name": "str/capitalize",
+   "template": "{{ 'hello world'|capitalize }}",
+   "jinja2": "Hello world"
+  },
+  {
+   "name": "str/capitalize-cyrillic",
+   "template": "{{ 'дом мой'|capitalize }}",
+   "jinja2": "Дом мой"
+  },
+  {
+   "name": "str/title",
+   "template": "{{ 'hello world'|title }}",
+   "jinja2": "Hello World"
+  },
+  {
+   "name": "str/trim",
+   "template": "{{ s_pad|trim }}",
+   "jinja2": "x"
+  },
+  {
+   "name": "str/trim-chars",
+   "template": "{{ '/x/'|trim('/') }}",
+   "jinja2": "x"
+  },
+  {
+   "name": "str/replace",
+   "template": "{{ s_dash|replace('-', '_') }}",
+   "jinja2": "a_b_c"
+  },
+  {
+   "name": "str/length",
+   "template": "{{ s_ru|length }}",
+   "jinja2": "3"
+  },
+  {
+   "name": "str/index",
+   "template": "{{ s[1] }}",
+   "jinja2": "b"
+  },
+  {
+   "name": "str/index-negative",
+   "template": "{{ s[-1] }}",
+   "jinja2": "c"
+  },
+  {
+   "name": "str/slice",
+   "template": "{{ s_dash[0:3] }}",
+   "jinja2": "a-b"
+  },
+  {
+   "name": "str/slice-open-end",
+   "template": "{{ s_dash[2:] }}",
+   "jinja2": "b-c"
+  },
+  {
+   "name": "str/slice-negative",
+   "template": "{{ s_dash[:-2] }}",
+   "jinja2": "a-b"
+  },
+  {
+   "name": "str/slice-cyrillic",
+   "template": "{{ s_ru[0:1] }}",
+   "jinja2": "д"
+  },
+  {
+   "name": "str/join",
+   "template": "{{ l|join('-') }}",
+   "jinja2": "3-1-2"
+  },
+  {
+   "name": "str/join-empty",
+   "template": "{{ l_empty|join('-') }}",
+   "jinja2": ""
+  },
+  {
+   "name": "str/indent",
+   "template": "{{ 'a\\nb'|indent(2) }}",
+   "jinja2": "a\n  b"
+  },
+  {
+   "name": "str/escape",
+   "template": "{{ '<a href=\"x\">'|e }}",
+   "jinja2": "&lt;a href=&#34;x&#34;&gt;"
+  },
+  {
+   "name": "str/escape-quote",
+   "template": "{{ \"it's\"|e }}",
+   "jinja2": "it&#39;s"
+  },
+  {
+   "name": "str/string-of-int",
+   "template": "{{ i|string }}",
+   "jinja2": "7"
+  },
+  {
+   "name": "str/string-of-float",
+   "template": "{{ f|string }}",
+   "jinja2": "2.5"
+  },
+  {
+   "name": "str/string-of-whole-float",
+   "template": "{{ f_whole|string }}",
+   "jinja2": "4.0"
+  },
+  {
+   "name": "str/string-of-none",
+   "template": "{{ nil|string }}",
+   "jinja2": "None"
+  },
+  {
+   "name": "str/string-of-bool",
+   "template": "{{ t|string }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "str/urlencode",
+   "template": "{{ 'a b'|urlencode }}",
+   "jinja2": "a%20b"
+  },
+  {
+   "name": "str/repeat",
+   "template": "{{ 'ab' * 2 }}",
+   "jinja2": "abab"
+  },
+  {
+   "name": "str/repeat-zero",
+   "template": "[{{ 'ab' * 0 }}]",
+   "jinja2": "[]"
+  },
+  {
+   "name": "str/repeat-negative",
+   "template": "[{{ 'ab' * -1 }}]",
+   "jinja2": "[]"
+  },
+  {
+   "name": "str/concat-plus",
+   "template": "{{ 'a' + s }}",
+   "jinja2": "aabc"
+  },
+  {
+   "name": "str/concat-tilde",
+   "template": "{{ s ~ i }}",
+   "jinja2": "abc7"
+  },
+  {
+   "name": "str/concat-tilde-none",
+   "template": "{{ s ~ nil }}",
+   "jinja2": "abcNone"
+  },
+  {
+   "name": "str/printf-operator",
+   "template": "{{ '%s-%s' % (1, 2) }}",
+   "jinja2": "1-2"
+  },
+  {
+   "name": "str/printf-filter",
+   "template": "{{ '%s-%s'|format(1, 2) }}",
+   "jinja2": "1-2"
+  },
+  {
+   "name": "str/printf-named",
+   "template": "{{ '%(a)s'|format(a=1) }}",
+   "jinja2": "1"
+  },
+  {
+   "name": "num/int-from-numeric-string",
+   "template": "{{ s_num|int }}",
+   "jinja2": "42"
+  },
+  {
+   "name": "num/int-from-float-string",
+   "template": "{{ s_float|int }}",
+   "jinja2": "1"
+  },
+  {
+   "name": "num/int-from-empty-string",
+   "template": "[{{ s_empty|int }}]",
+   "jinja2": "[0]"
+  },
+  {
+   "name": "num/int-from-word",
+   "template": "[{{ s|int }}]",
+   "jinja2": "[0]"
+  },
+  {
+   "name": "num/int-from-list",
+   "template": "[{{ l|int }}]",
+   "jinja2": "[0]"
+  },
+  {
+   "name": "num/int-with-default",
+   "template": "{{ s|int(5) }}",
+   "jinja2": "5"
+  },
+  {
+   "name": "num/int-with-base",
+   "template": "{{ 'ff'|int(0, 16) }}",
+   "jinja2": "255"
+  },
+  {
+   "name": "num/int-overflow",
+   "template": "{{ f_big|int }}",
+   "jinja2": "100000000000000000000"
+  },
+  {
+   "name": "num/float-from-word",
+   "template": "[{{ s|float }}]",
+   "jinja2": "[0.0]"
+  },
+  {
+   "name": "num/float-from-numeric-string",
+   "template": "{{ s_float|float }}",
+   "jinja2": "1.5"
+  },
+  {
+   "name": "num/abs",
+   "template": "{{ i_neg|abs }}",
+   "jinja2": "7"
+  },
+  {
+   "name": "num/abs-float",
+   "template": "{{ f_neg|abs }}",
+   "jinja2": "2.5"
+  },
+  {
+   "name": "num/round-half-up",
+   "template": "{{ 2.5|round }}",
+   "jinja2": "2.0"
+  },
+  {
+   "name": "num/round-half-down",
+   "template": "{{ 0.5|round }}",
+   "jinja2": "0.0"
+  },
+  {
+   "name": "num/round-negative-half",
+   "template": "{{ -2.5|round }}",
+   "jinja2": "-2.0"
+  },
+  {
+   "name": "num/round-precision",
+   "template": "{{ 1.2345|round(2) }}",
+   "jinja2": "1.23"
+  },
+  {
+   "name": "num/round-ceil",
+   "template": "{{ 1.1|round(0, 'ceil') }}",
+   "jinja2": "2.0"
+  },
+  {
+   "name": "num/round-floor",
+   "template": "{{ 1.9|round(0, 'floor') }}",
+   "jinja2": "1.0"
+  },
+  {
+   "name": "num/div",
+   "template": "{{ 1/3 }}",
+   "jinja2": "0.3333333333333333"
+  },
+  {
+   "name": "num/div-whole",
+   "template": "{{ 4/2 }}",
+   "jinja2": "2.0"
+  },
+  {
+   "name": "num/floordiv-negative-dividend",
+   "template": "{{ -7 // 2 }}",
+   "jinja2": "-4"
+  },
+  {
+   "name": "num/floordiv-negative-divisor",
+   "template": "{{ 7 // -2 }}",
+   "jinja2": "-4"
+  },
+  {
+   "name": "num/modulo",
+   "template": "{{ 7 % 3 }}",
+   "jinja2": "1"
+  },
+  {
+   "name": "num/modulo-negative-dividend",
+   "template": "{{ -7 % 3 }}",
+   "jinja2": "2"
+  },
+  {
+   "name": "num/modulo-negative-divisor",
+   "template": "{{ 7 % -3 }}",
+   "jinja2": "-2"
+  },
+  {
+   "name": "num/modulo-float",
+   "template": "{{ 7.5 % 2 }}",
+   "jinja2": "1.5"
+  },
+  {
+   "name": "num/pow",
+   "template": "{{ 2 ** 3 }}",
+   "jinja2": "8"
+  },
+  {
+   "name": "num/pow-negative-exponent",
+   "template": "{{ 2 ** -1 }}",
+   "jinja2": "0.5"
+  },
+  {
+   "name": "num/whole-float-render",
+   "template": "{{ f_whole }}",
+   "jinja2": "4.0"
+  },
+  {
+   "name": "num/whole-float-arithmetic",
+   "template": "{{ f_whole + 1 }}",
+   "jinja2": "5.0"
+  },
+  {
+   "name": "num/big-float-render",
+   "template": "{{ f_big }}",
+   "jinja2": "1e+20"
+  },
+  {
+   "name": "num/sum",
+   "template": "{{ l|sum }}",
+   "jinja2": "6"
+  },
+  {
+   "name": "num/sum-empty",
+   "template": "{{ l_empty|sum }}",
+   "jinja2": "0"
+  },
+  {
+   "name": "num/min",
+   "template": "{{ l|min }}",
+   "jinja2": "1"
+  },
+  {
+   "name": "num/max",
+   "template": "{{ l|max }}",
+   "jinja2": "3"
+  },
+  {
+   "name": "bool/render-true",
+   "template": "{{ t }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "bool/render-false",
+   "template": "{{ no }}",
+   "jinja2": "False"
+  },
+  {
+   "name": "bool/add-int",
+   "template": "{{ t + 1 }}",
+   "jinja2": "2"
+  },
+  {
+   "name": "bool/multiply-int",
+   "template": "{{ t * 3 }}",
+   "jinja2": "3"
+  },
+  {
+   "name": "bool/compare-with-int",
+   "template": "{{ 1 > t }}",
+   "jinja2": "False"
+  },
+  {
+   "name": "bool/equal-to-int",
+   "template": "{{ t == 1 }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "bool/abs",
+   "template": "{{ t|abs }}",
+   "jinja2": "1"
+  },
+  {
+   "name": "bool/is-number",
+   "template": "{{ t is number }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "bool/is-odd",
+   "template": "{{ t is odd }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "bool/is-boolean",
+   "template": "{{ t is boolean }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "none/render",
+   "template": "[{{ nil }}]",
+   "jinja2": "[None]"
+  },
+  {
+   "name": "none/is-none",
+   "template": "{{ nil is none }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "none/default",
+   "template": "{{ nil|default('D') }}",
+   "jinja2": "None"
+  },
+  {
+   "name": "none/default-boolean",
+   "template": "{{ nil|default('D', true) }}",
+   "jinja2": "D"
+  },
+  {
+   "name": "none/length",
+   "template": "{{ nil|default('')|length }}",
+   "error": true,
+   "jinja2": "TypeError"
+  },
+  {
+   "name": "seq/render",
+   "template": "{{ l }}",
+   "jinja2": "[3, 1, 2]"
+  },
+  {
+   "name": "seq/first",
+   "template": "{{ l|first }}",
+   "jinja2": "3"
+  },
+  {
+   "name": "seq/last",
+   "template": "{{ l|last }}",
+   "jinja2": "2"
+  },
+  {
+   "name": "seq/length",
+   "template": "{{ l|length }}",
+   "jinja2": "3"
+  },
+  {
+   "name": "seq/sort",
+   "template": "{{ l|sort }}",
+   "jinja2": "[1, 2, 3]"
+  },
+  {
+   "name": "seq/sort-strings",
+   "template": "{{ l_str|sort }}",
+   "jinja2": "['A', 'b', 'c']"
+  },
+  {
+   "name": "seq/sort-reverse",
+   "template": "{{ l|sort(reverse=true) }}",
+   "jinja2": "[3, 2, 1]"
+  },
+  {
+   "name": "seq/sort-attribute",
+   "template": "{{ objs|sort(attribute='n') }}",
+   "jinja2": "[{'n': 1, 'k': 'y'}, {'n': 2, 'k': 'x'}, {'n': 3, 'k': 'x'}]"
+  },
+  {
+   "name": "seq/reverse",
+   "template": "{{ l|reverse|list }}",
+   "jinja2": "[2, 1, 3]"
+  },
+  {
+   "name": "seq/unique",
+   "template": "{{ l_dup|unique|list }}",
+   "jinja2": "[1, 2]"
+  },
+  {
+   "name": "seq/unique-attribute",
+   "template": "{{ objs|unique(attribute='k')|list }}",
+   "jinja2": "[{'n': 2, 'k': 'x'}, {'n': 1, 'k': 'y'}]"
+  },
+  {
+   "name": "seq/slice-filter",
+   "template": "{{ l|slice(2)|list }}",
+   "jinja2": "[[3, 1], [2]]"
+  },
+  {
+   "name": "seq/batch",
+   "template": "{{ l|batch(2)|list }}",
+   "jinja2": "[[3, 1], [2]]"
+  },
+  {
+   "name": "seq/map-filter",
+   "template": "{{ l_str|map('upper')|list }}",
+   "jinja2": "['B', 'A', 'C']"
+  },
+  {
+   "name": "seq/map-attribute",
+   "template": "{{ objs|map(attribute='k')|list }}",
+   "jinja2": "['x', 'y', 'x']"
+  },
+  {
+   "name": "seq/select",
+   "template": "{{ l|select('odd')|list }}",
+   "jinja2": "[3, 1]"
+  },
+  {
+   "name": "seq/reject",
+   "template": "{{ l|reject('odd')|list }}",
+   "jinja2": "[2]"
+  },
+  {
+   "name": "seq/selectattr",
+   "template": "{{ objs|selectattr('k', 'eq', 'x')|list }}",
+   "jinja2": "[{'n': 2, 'k': 'x'}, {'n': 3, 'k': 'x'}]"
+  },
+  {
+   "name": "seq/min-attribute",
+   "template": "{{ objs|min(attribute='n') }}",
+   "jinja2": "{'n': 1, 'k': 'y'}"
+  },
+  {
+   "name": "seq/max-attribute",
+   "template": "{{ objs|max(attribute='n') }}",
+   "jinja2": "{'n': 3, 'k': 'x'}"
+  },
+  {
+   "name": "seq/sum-attribute",
+   "template": "{{ objs|sum(attribute='n') }}",
+   "jinja2": "6"
+  },
+  {
+   "name": "seq/join-attribute",
+   "template": "{{ objs|join(',', attribute='n') }}",
+   "jinja2": "2,1,3"
+  },
+  {
+   "name": "seq/groupby",
+   "template": "{{ objs|groupby('k')|list }}",
+   "jinja2": "[('x', [{'n': 2, 'k': 'x'}, {'n': 3, 'k': 'x'}]), ('y', [{'n': 1, 'k': 'y'}])]"
+  },
+  {
+   "name": "seq/index-negative",
+   "template": "{{ l[-1] }}",
+   "jinja2": "2"
+  },
+  {
+   "name": "seq/slice-negative",
+   "template": "{{ l[:-1] }}",
+   "jinja2": "[3, 1]"
+  },
+  {
+   "name": "seq/repeat-negative",
+   "template": "{{ [1] * -1 }}",
+   "jinja2": "[]"
+  },
+  {
+   "name": "seq/in",
+   "template": "{{ 1 in l }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "seq/is-sequence",
+   "template": "{{ l is sequence }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "seq/string-is-sequence",
+   "template": "{{ s is sequence }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "seq/iterate",
+   "template": "{% for x in l %}[{{ x }}]{% endfor %}",
+   "jinja2": "[3][1][2]"
+  },
+  {
+   "name": "seq/iterate-string",
+   "template": "{% for c in 'аб' %}[{{ c }}]{% endfor %}",
+   "jinja2": "[а][б]"
+  },
+  {
+   "name": "map/render",
+   "template": "{{ d }}",
+   "jinja2": "{'b': 2, 'a': 1}"
+  },
+  {
+   "name": "map/literal-order",
+   "template": "{{ {'b': 2, 'a': 1} }}",
+   "jinja2": "{'b': 2, 'a': 1}"
+  },
+  {
+   "name": "map/dict-function-order",
+   "template": "{{ dict(b=2, a=1) }}",
+   "jinja2": "{'b': 2, 'a': 1}"
+  },
+  {
+   "name": "map/iterate-order",
+   "template": "{% for k in d %}[{{ k }}]{% endfor %}",
+   "jinja2": "[b][a]"
+  },
+  {
+   "name": "map/first",
+   "template": "{{ d|first }}",
+   "jinja2": "b"
+  },
+  {
+   "name": "map/list",
+   "template": "{{ d|list }}",
+   "jinja2": "['b', 'a']"
+  },
+  {
+   "name": "map/length",
+   "template": "{{ d|length }}",
+   "jinja2": "2"
+  },
+  {
+   "name": "map/dictsort",
+   "template": "{{ d|dictsort }}",
+   "jinja2": "[('a', 1), ('b', 2)]"
+  },
+  {
+   "name": "map/items",
+   "template": "{{ d|items|list }}",
+   "jinja2": "[('b', 2), ('a', 1)]"
+  },
+  {
+   "name": "map/attribute-access",
+   "template": "{{ d.a }}",
+   "jinja2": "1"
+  },
+  {
+   "name": "map/item-access",
+   "template": "{{ d['a'] }}",
+   "jinja2": "1"
+  },
+  {
+   "name": "map/in",
+   "template": "{{ 'a' in d }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "map/is-mapping",
+   "template": "{{ d is mapping }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "map/tojson",
+   "template": "{{ d|tojson }}",
+   "jinja2": "{\"a\": 1, \"b\": 2}"
+  },
+  {
+   "name": "map/tojson-cyrillic",
+   "template": "{{ {'k': 'дом'}|tojson }}",
+   "jinja2": "{\"k\": \"\\u0434\\u043e\\u043c\"}"
+  },
+  {
+   "name": "map/urlencode",
+   "template": "{{ d|urlencode }}",
+   "jinja2": "b=2&a=1"
+  },
+  {
+   "name": "map/unpack-in-loop",
+   "template": "{% for k, v in d|items %}[{{ k }}={{ v }}]{% endfor %}",
+   "jinja2": "[b=2][a=1]"
+  },
+  {
+   "name": "test/defined",
+   "template": "{{ s is defined }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/undefined",
+   "template": "{{ nope is undefined }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/string",
+   "template": "{{ s is string }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/number-int",
+   "template": "{{ i is number }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/integer",
+   "template": "{{ i is integer }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/float",
+   "template": "{{ f is float }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/whole-float-is-float",
+   "template": "{{ f_whole is float }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/whole-float-is-integer",
+   "template": "{{ f_whole is integer }}",
+   "jinja2": "False"
+  },
+  {
+   "name": "test/even",
+   "template": "{{ i is even }}",
+   "jinja2": "False"
+  },
+  {
+   "name": "test/odd",
+   "template": "{{ i is odd }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/divisibleby",
+   "template": "{{ 9 is divisibleby(3) }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/lower",
+   "template": "{{ 'abc' is lower }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/lower-empty",
+   "template": "{{ s_empty is lower }}",
+   "jinja2": "False"
+  },
+  {
+   "name": "test/lower-no-cased-chars",
+   "template": "{{ s_float is lower }}",
+   "jinja2": "False"
+  },
+  {
+   "name": "test/upper",
+   "template": "{{ s_up is upper }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/upper-empty",
+   "template": "{{ s_empty is upper }}",
+   "jinja2": "False"
+  },
+  {
+   "name": "test/upper-no-cased-chars",
+   "template": "{{ s_num is upper }}",
+   "jinja2": "False"
+  },
+  {
+   "name": "test/in",
+   "template": "{{ 1 is in(l) }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/eq",
+   "template": "{{ 1 is eq(1) }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/iterable",
+   "template": "{{ l is iterable }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "test/string-is-iterable",
+   "template": "{{ s is iterable }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "args/unknown-kwarg-on-length",
+   "template": "{{ l|length(nonsense=1) }}",
+   "error": true,
+   "jinja2": "TypeError"
+  },
+  {
+   "name": "args/unknown-kwarg-on-join",
+   "template": "{{ l|join(',', nonsense=1) }}",
+   "error": true,
+   "jinja2": "TypeError"
+  },
+  {
+   "name": "args/too-many-positional",
+   "template": "{{ l|length(1) }}",
+   "error": true,
+   "jinja2": "TypeError"
+  },
+  {
+   "name": "args/default-two-args",
+   "template": "{{ s_empty|default('D', true) }}",
+   "jinja2": "D"
+  },
+  {
+   "name": "args/replace-count",
+   "template": "{{ 'aaa'|replace('a', 'b', 2) }}",
+   "jinja2": "bba"
+  },
+  {
+   "name": "flow/with",
+   "template": "{% with a = 1 %}{{ a }}{% endwith %}",
+   "jinja2": "1"
+  },
+  {
+   "name": "flow/namespace",
+   "template": "{% set ns = namespace(x=0) %}{% for i in l %}{% set ns.x = ns.x + i %}{% endfor %}{{ ns.x }}",
+   "jinja2": "6"
+  },
+  {
+   "name": "flow/block-set",
+   "template": "{% set v %}text{% endset %}{{ v }}",
+   "jinja2": "text"
+  },
+  {
+   "name": "flow/tuple-assign",
+   "template": "{% set a, b = 1, 2 %}{{ a }}{{ b }}",
+   "jinja2": "12"
+  },
+  {
+   "name": "flow/macro-default",
+   "template": "{% macro m(a, b='B') %}{{ a }}{{ b }}{% endmacro %}{{ m(1) }}",
+   "jinja2": "1B"
+  },
+  {
+   "name": "flow/macro-kwargs",
+   "template": "{% macro m(a, b='B') %}{{ a }}{{ b }}{% endmacro %}{{ m(1, b='C') }}",
+   "jinja2": "1C"
+  },
+  {
+   "name": "flow/loop-index",
+   "template": "{% for x in l %}{{ loop.index }}{% endfor %}",
+   "jinja2": "123"
+  },
+  {
+   "name": "flow/loop-cycle",
+   "template": "{% for x in l %}{{ loop.cycle('a', 'b') }}{% endfor %}",
+   "jinja2": "aba"
+  },
+  {
+   "name": "flow/loop-changed",
+   "template": "{% for x in l_dup %}{{ loop.changed(x) }}{% endfor %}",
+   "jinja2": "TrueFalseTrue"
+  },
+  {
+   "name": "flow/loop-previtem",
+   "template": "{% for x in l %}[{{ loop.previtem|default('-') }}]{% endfor %}",
+   "jinja2": "[-][3][1]"
+  },
+  {
+   "name": "flow/loop-else",
+   "template": "{% for x in l_empty %}x{% else %}empty{% endfor %}",
+   "jinja2": "empty"
+  },
+  {
+   "name": "flow/if-without-else",
+   "template": "{{ 'y' if i }}",
+   "jinja2": "y"
+  },
+  {
+   "name": "flow/chained-compare",
+   "template": "{{ 1 < i < 10 }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "flow/raw",
+   "template": "{% raw %}{{ x }}{% endraw %}",
+   "jinja2": "{{ x }}"
+  },
+  {
+   "name": "flow/comment",
+   "template": "a{# comment #}b",
+   "jinja2": "ab"
+  },
+  {
+   "name": "flow/whitespace-control",
+   "template": "{% for x in l -%}  {{ x }}{%- endfor %}",
+   "jinja2": "312"
+  },
+  {
+   "name": "flow/trailing-newline",
+   "template": "text\n",
+   "jinja2": "text"
+  },
+  {
+   "name": "flow/crlf",
+   "template": "a\r\nb",
+   "jinja2": "a\nb"
+  },
+  {
+   "name": "undef/render",
+   "template": "[{{ nope }}]",
+   "jinja2": "[]"
+  },
+  {
+   "name": "undef/attribute-of-undefined-root",
+   "template": "{{ nope.attr }}",
+   "error": true,
+   "jinja2": "UndefinedError"
+  },
+  {
+   "name": "undef/attribute-of-known-mapping",
+   "template": "{{ d.nope }}",
+   "jinja2": ""
+  },
+  {
+   "name": "undef/chained-attribute",
+   "template": "{{ d.nope.deep }}",
+   "error": true,
+   "jinja2": "UndefinedError"
+  },
+  {
+   "name": "undef/default",
+   "template": "{{ nope|default('D') }}",
+   "jinja2": "D"
+  },
+  {
+   "name": "undef/in-condition",
+   "template": "{{ 'y' if nope else 'n' }}",
+   "jinja2": "n"
+  },
+  {
+   "name": "undef/concat",
+   "template": "[{{ 'a' ~ nope }}]",
+   "jinja2": "[a]"
+  },
+  {
+   "name": "undef/filter",
+   "template": "[{{ nope|upper }}]",
+   "jinja2": "[]"
+  },
+  {
+   "name": "pymethod/str-split",
+   "template": "{{ s_dash.split('-')[0] }}",
+   "jinja2": "a"
+  },
+  {
+   "name": "pymethod/str-replace",
+   "template": "{{ s.replace('a', 'b') }}",
+   "jinja2": "bbc"
+  },
+  {
+   "name": "pymethod/str-upper",
+   "template": "{{ s.upper() }}",
+   "jinja2": "ABC"
+  },
+  {
+   "name": "pymethod/str-startswith",
+   "template": "{{ s.startswith('a') }}",
+   "jinja2": "True"
+  },
+  {
+   "name": "pymethod/str-strip",
+   "template": "{{ s_pad.strip() }}",
+   "jinja2": "x"
+  },
+  {
+   "name": "pymethod/str-format-spec",
+   "template": "{{ '{:.2f}'.format(f) }}",
+   "jinja2": "2.50"
+  },
+  {
+   "name": "pymethod/str-format-positional",
+   "template": "{{ '{}-{}'.format(1, 2) }}",
+   "jinja2": "1-2"
+  },
+  {
+   "name": "pymethod/dict-get",
+   "template": "{{ d.get('a') }}",
+   "jinja2": "1"
+  },
+  {
+   "name": "pymethod/dict-get-default",
+   "template": "{{ d.get('zz', 7) }}",
+   "jinja2": "7"
+  },
+  {
+   "name": "pymethod/dict-items",
+   "template": "{% for k, v in d.items() %}[{{ k }}]{% endfor %}",
+   "jinja2": "[b][a]"
+  },
+  {
+   "name": "pymethod/dict-keys",
+   "template": "{{ d.keys()|list }}",
+   "jinja2": "['b', 'a']"
+  },
+  {
+   "name": "missing/truncate",
+   "template": "{{ 'hello world, how are you'|truncate(12) }}",
+   "jinja2": "hello..."
+  },
+  {
+   "name": "missing/striptags",
+   "template": "{{ '<b>x</b> y'|striptags }}",
+   "jinja2": "x y"
+  },
+  {
+   "name": "missing/wordwrap",
+   "template": "{{ 'aaa bbb ccc ddd'|wordwrap(7) }}",
+   "jinja2": "aaa bbb\nccc ddd"
+  },
+  {
+   "name": "missing/wordcount",
+   "template": "{{ 'a b c'|wordcount }}",
+   "jinja2": "3"
+  },
+  {
+   "name": "missing/filesizeformat",
+   "template": "{{ 1024|filesizeformat }}",
+   "jinja2": "1.0 kB"
+  },
+  {
+   "name": "missing/center",
+   "template": "[{{ 'x'|center(5) }}]",
+   "jinja2": "[  x  ]"
+  },
+  {
+   "name": "missing/forceescape",
+   "template": "{{ '<b>'|forceescape }}",
+   "jinja2": "&lt;b&gt;"
+  },
+  {
+   "name": "missing/xmlattr",
+   "template": "{{ d|xmlattr }}",
+   "jinja2": " b=\"2\" a=\"1\""
+  },
+  {
+   "name": "missing/urlize",
+   "template": "{{ 'see example.com'|urlize }}",
+   "jinja2": "see <a href=\"https://example.com\" rel=\"noopener\">example.com</a>"
+  },
+  {
+   "name": "missing/pprint",
+   "template": "{{ s|pprint }}",
+   "jinja2": "'abc'"
+  },
+  {
+   "name": "missing/callable-test",
+   "template": "{{ i is callable }}",
+   "jinja2": "False"
+  }
+ ]
+}
